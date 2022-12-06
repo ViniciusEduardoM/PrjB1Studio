@@ -44,10 +44,9 @@ namespace SAPExemple
             this.OptionBtn1.ClickBefore += new SAPbouiCOM._IOptionBtnEvents_ClickBeforeEventHandler(this.OptionBtn1_ClickBefore);
             this.OptionBtn2 = ((SAPbouiCOM.OptionBtn)(this.GetItem("Item_14").Specific));
             this.OptionBtn2.ClickBefore += new SAPbouiCOM._IOptionBtnEvents_ClickBeforeEventHandler(this.OptionBtn2_ClickBefore);
-
-            OptionBtn1.GroupWith("Item_12");
-            OptionBtn2.GroupWith("Item_12");
-
+            this.OptionBtn1.GroupWith("Item_12");
+            this.OptionBtn2.GroupWith("Item_12");
+            this.PictureBox1 = ((SAPbouiCOM.PictureBox)(this.GetItem("Item_15").Specific));
             this.OnCustomInitialize();
 
         }
@@ -183,8 +182,6 @@ namespace SAPExemple
 
             string b = userDS.Value;
 
-            //Grid0.CollapseLevel = 0;
-
         }
 
         private void OptionBtn1_ClickBefore(object sboObject, SBOItemEventArg pVal, out bool BubbleEvent)
@@ -195,10 +192,6 @@ namespace SAPExemple
             string b = userDS.Value;
 
             Grid1.CollapseLevel = 2;
-
-            Grid1.Rows.ExpandAll();
-
-
         }
 
         private void OptionBtn2_ClickBefore(object sboObject, SBOItemEventArg pVal, out bool BubbleEvent)
@@ -209,9 +202,8 @@ namespace SAPExemple
             string b = userDS.Value;
 
             Grid1.CollapseLevel = 3;
-
-            Grid1.Rows.CollapseAll();
-
         }
+
+        private PictureBox PictureBox1;
     }
 }
