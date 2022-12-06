@@ -14,6 +14,11 @@ namespace SAPExemple
 
             oMenus = Application.SBO_Application.Menus;
 
+            if (oMenus.Exists("SAPExemple"))
+            {
+                oMenus.RemoveEx("SAPExemple");
+            }
+
             SAPbouiCOM.MenuCreationParams oCreationPackage = null;
             oCreationPackage = ((SAPbouiCOM.MenuCreationParams)(Application.SBO_Application.CreateObject(SAPbouiCOM.BoCreatableObjectType.cot_MenuCreationParams)));
             oMenuItem = Application.SBO_Application.Menus.Item("43520"); // moudles'

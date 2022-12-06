@@ -47,6 +47,7 @@ namespace SAPExemple
             this.OptionBtn1.GroupWith("Item_12");
             this.OptionBtn2.GroupWith("Item_12");
             this.PictureBox1 = ((SAPbouiCOM.PictureBox)(this.GetItem("Item_15").Specific));
+            this.StaticText7 = ((SAPbouiCOM.StaticText)(this.GetItem("Item_9").Specific));
             this.OnCustomInitialize();
 
         }
@@ -64,6 +65,7 @@ namespace SAPExemple
 
         private void OnCustomInitialize()
         {
+            OptionBtn0.Selected = true;
         }
 
         private SAPbouiCOM.EditText EditText0;
@@ -82,32 +84,27 @@ namespace SAPExemple
         {
             BubbleEvent = true;
 
-            string queryRelatorio = "SELECT * FROM V_FISCAL ";
+            string queryRelatorio = "SELECT top 10 * FROM V_FISCAL ";
 
-            string queryPV = "SELECT DocEntry, CardCode, CardName, DocDate, DocDueDate,DocTotal FROM ORDR ";
+            string queryPV = "SELECT top 10 DocEntry, CardCode, CardName, DocDate, DocDueDate, DocTotal FROM ORDR ";
 
             if (!string.IsNullOrEmpty(EditText0.Value))
             {
                 queryRelatorio += (queryRelatorio.Contains("WHERE") ? "AND " : "WHERE ") + $"\"Codigo PN\" = '{EditText0.Value}'";
                 queryPV += (queryPV.Contains("WHERE") ? "AND " : "WHERE ") + $"\"CardCode\" = '{EditText0.Value}'";
-
             }
 
             if (!string.IsNullOrEmpty(EditText2.Value))
             {
-                queryRelatorio += (queryRelatorio.Contains("WHERE") ? "AND " : "WHERE ") +  $"\"Dt.Entrada\" >= '{EditText2.Value}'";
+                queryRelatorio += (queryRelatorio.Contains("WHERE") ? "AND " : "WHERE ") + $"\"Dt.Entrada\" >= '{EditText2.Value}'";
                 queryPV += (queryPV.Contains("WHERE") ? "AND " : "WHERE ") + $"\"DocDate\" >= '{EditText2.Value}'";
-
             }
 
             if (!string.IsNullOrEmpty(EditText3.Value))
             {
-
                 queryRelatorio += (queryRelatorio.Contains("WHERE") ? "AND " : "WHERE ") + $"\"Dt.Entrada\" <= '{EditText3.Value}'";
                 queryPV += (queryPV.Contains("WHERE") ? "AND " : "WHERE ") + $"\"DocDate\" <= '{EditText3.Value}'";
-
             }
-
 
             Grid0.DataTable.ExecuteQuery(queryRelatorio);
 
@@ -117,6 +114,8 @@ namespace SAPExemple
 
             int index = 0;
 
+            UIAPIRawForm.Freeze(true);
+            ClearDataTable(Grid1.DataTable);
             while (!oRecord.EoF)
             {
                 Grid1.DataTable.Rows.Add();
@@ -126,13 +125,12 @@ namespace SAPExemple
                 Grid1.DataTable.Columns.Item("Cliente Nome").Cells.Item(index).Value = oRecord.Fields.Item("CardName").Value.ToString();
                 Grid1.DataTable.Columns.Item("Data Documento").Cells.Item(index).Value = oRecord.Fields.Item("DocDate").Value;
                 Grid1.DataTable.Columns.Item("Data Vencimento").Cells.Item(index).Value = oRecord.Fields.Item("DocDueDate").Value;
-                Grid1.DataTable.Columns.Item("Total").Cells.Item(index).Value = oRecord.Fields.Item("DocTotal").Value.ToString();
+                Grid1.DataTable.Columns.Item("Total").Cells.Item(index).Value = oRecord.Fields.Item("DocTotal").Value;
 
                 oRecord.MoveNext();
                 index++;
             }
-
-            SAPbouiCOM.Form oForm = Application.SBO_Application.Forms.ActiveForm;            
+            UIAPIRawForm.Freeze(false);
 
             Grid0.AutoResizeColumns();
             Grid1.AutoResizeColumns();
@@ -163,6 +161,15 @@ namespace SAPExemple
             oForm = Application.SBO_Application.Forms.Item("Form1");
         }
 
+        private void ClearDataTable(SAPbouiCOM.DataTable datatable)
+        {
+            var rowsCount = datatable.Rows.Count;
+            for (int i = 0; i < rowsCount; i++)
+            {
+                datatable.Rows.Remove(0);
+            }
+        }
+
         private StaticText StaticText2;
         private StaticText StaticText3;
         private StaticText StaticText4;
@@ -182,6 +189,7 @@ namespace SAPExemple
 
             string b = userDS.Value;
 
+            Grid1.CollapseLevel = 0;
         }
 
         private void OptionBtn1_ClickBefore(object sboObject, SBOItemEventArg pVal, out bool BubbleEvent)
@@ -205,5 +213,6 @@ namespace SAPExemple
         }
 
         private PictureBox PictureBox1;
+        private StaticText StaticText7;
     }
 }
