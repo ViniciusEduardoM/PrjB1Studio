@@ -1,0 +1,8 @@
+C:\Users\vinic\source\repos\SAPExemple\bin\Debug\SAPExemple.exe
+C:\Users\vinic\source\repos\SAPExemple\bin\Debug\SAPExemple.pdb
+C:\Users\vinic\source\repos\SAPExemple\bin\Debug\SAPBusinessOneSDK.dll
+C:\Users\vinic\source\repos\SAPExemple\obj\Debug\SAPExemple.csproj.AssemblyReference.cache
+C:\Users\vinic\source\repos\SAPExemple\obj\Debug\SAPExemple.csproj.CoreCompileInputs.cache
+C:\Users\vinic\source\repos\SAPExemple\obj\Debug\SAPExemple.csproj.CopyComplete
+C:\Users\vinic\source\repos\SAPExemple\obj\Debug\SAPExemple.exe
+C:\Users\vinic\source\repos\SAPExemple\obj\Debug\SAPExemple.pdb
