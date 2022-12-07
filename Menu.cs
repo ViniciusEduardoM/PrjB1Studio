@@ -50,7 +50,7 @@ namespace SAPExemple
                 // Create s sub menu
                 oCreationPackage.Type = SAPbouiCOM.BoMenuType.mt_STRING;
                 oCreationPackage.UniqueID = "SAPExemple.Form1";
-                oCreationPackage.String = "Form1";
+                oCreationPackage.String = "Form 100% LABOner";
                 oMenus.AddEx(oCreationPackage);
             }
             catch (Exception er)
